@@ -1,0 +1,1 @@
+Create a simple Node website as part of THe Odin Project's NodeJS course (https://www.theodinproject.com/courses/nodejs/lessons/basic-informational-site?ref=lnav)
