@@ -1,25 +1,24 @@
-var http = require('http');
-var url = require('url');
-var fs = require('fs');
+const express = require('express');
+const app = express();
+const path = require('path');
+const router = express.Router();
 
-http.createServer(function (req, res) {
-    var parse = url.parse(req.url, true);
-    var fileName = "static" + parse.pathname + ".html";
-    if (fileName == "static/.html") {
-        fileName = "static/index.html";
-    }
-    fs.readFile(fileName, function(err, data) {
-        if (err) {
-            fs.readFile('static/404.html', function(err, data){
-                res.writeHead(200, {'Content-Type': 'text/html'});
-                res.write(data);
-                return res.end();
-            })
-        }
-        else {
-            res.writeHead(200, {'Content-Type': 'text/html'});
-            res.write(data);
-            return res.end();
-        }
-    });
-}).listen(8080);
+router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/static'+'/index.html'));
+});
+
+router.get('/404',function(req,res){
+  res.sendFile(path.join(__dirname+'/static'+'/404.html'));
+});
+
+router.get('/contact-me',function(req,res){
+  res.sendFile(path.join(__dirname+'/static'+'/contact-me.html'));
+});
+
+router.get('/about',function(req,res){
+    res.sendFile(path.join(__dirname+'/static'+'/about.html'));
+});
+
+//add the router
+app.use('/', router);
+app.listen(process.env.port || 8080);
